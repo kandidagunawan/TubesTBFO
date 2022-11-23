@@ -25,3 +25,26 @@ def rule1terminal(productions, vars, terminals):
         if production[0] in vars and production[1][0] in terminals and len(production[1]) == 1:
             result[production[0]] = production[1][0]
     return result
+
+
+def deleteUnitProd(newP):
+    for prod in newP:
+        if (len(prod[1]) == 1):
+            for var in newP:
+                if (var[0] == prod[1][0]):
+                    prod[1][0] = var[1][0]
+                    n = len(var[1])
+                    for i in range(1, n):
+                        prod[1].append(var[1][i])
+
+    return newP
+
+
+
+
+terminal, var, newP = loadModel('grammar.txt')
+print('Old prod: ')
+print(newP)
+print('New Prod: ')
+print(deleteUnitProd(newP))
+# print(len(newP[0][1]))
