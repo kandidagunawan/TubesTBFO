@@ -101,22 +101,20 @@ def CFG_to_CNF(productions, vars, terminals, newVars):
                         production[1][rhsId] = prod
 
     # # # replace each prod A -> B1..Bn where n > 2, with A -> B1C , C -> B2..Bn
-    # for production in range(len(productions)):
-    #     if len(productions[production][1]) > 2:
-    #         # used, prod = cekUnusedProd(productions, productions[production[1]])
-    #         varPengganti = newVars.pop(0)
-    #         first = productions[production][1].pop(0)
-    #         tempRHS = productions[production][1]
-    #         used, prod = cekUnsusedVarProd(
-    #             productions, tempRHS, productions[production][0])
-    #         print(prod)
-    #         if (used == False):
-    #             productions[production] = (productions[production][0], [
-    #                 first, varPengganti])
-    #             productions.append((varPengganti, tempRHS))
-    #         else:
-    #             productions[production] = (
-    #                 productions[production][0], [first, prod])
+    for i in range(len(productions)):
+        if len(productions[i][1]) > 2:
+            varPengganti = newVars.pop(0)
+            first = productions[i][1][0]
+            tempRHS = productions[i][1][1:]
+            used, prod = cekUnsusedVarProd(
+                productions, tempRHS, productions[i][0])
+            if (used == False):
+                productions[i] = (productions[i][0], [
+                    first, varPengganti])
+                productions.append((varPengganti, tempRHS))
+            else:
+                productions[i] = (
+                    productions[i][0], [first, prod])
     return productions
 
 
@@ -130,21 +128,18 @@ newVars = ['A1', 'A2', 'A3', 'A4', 'A5',
            'H1', 'H2', 'H3', 'H4', 'H5',
            'I1', 'I2', 'I3', 'I4', 'I5',
            'J1', 'J2', 'J3', 'J4', 'J5']
-# # print('prod: ')
-# # print(newP)
-var1 = ['S', 'A', 'B']
-term1 = ['a', 'b', 'c']
-prod1 = [('S', ['A', 'S', 'B']), ('S', ['A', 'B']), ('A', ['a', 'A', 'S']), ('A', ['a', 'A']), ('A', ['a']),
-         ('B', ['S', 'b', 'S']), ('B', ['b', 'S']), ('B', ['S', 'b']), ('B', ['b']), ('B', ['A']), ('B', ['b', 'b'])]
-
-# print(cekUnusedProd(prod1, 'a', 'A5'))
 
 
-terminal, var, newP = loadModel('grammar.txt')
-print('ini: ')
-print(CFG_to_CNF(prod1, var1, term1, newVars))
+# TEST CASE
+# var1 = ['S', 'A', 'B']
+# term1 = ['a', 'b', 'c']
+# prod1 = [('S', ['A', 'S', 'B']), ('S', ['A', 'B']), ('A', ['a', 'A', 'S']), ('A', ['a', 'A']), ('A', ['a']),
+#          ('B', ['S', 'b', 'S']), ('B', ['b', 'S']), ('B', ['S', 'b']), ('B', ['b']), ('B', ['A']), ('B', ['b', 'b'])]
+# print(CFG_to_CNF(prod1, var1, term1, newVars))
 
 
+# terminal, var, newP = loadModel('grammar.txt')
+# print('ini: ')
 # # rhs = newVars.pop()
 # # print(rhs)
 # # print(newVars)
