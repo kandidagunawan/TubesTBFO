@@ -88,50 +88,54 @@ newA = r'[\n]+[ \t]*\'\'\'[(?!(\'\'\'))\w\W]*\'\'\''
 newB = r'[\n]+[ \t]*\"\"\"[(?!(\"\"\"))\w\W]*\"\"\"'
 
 
-# def lexer(teks, token_exp):
-#     index = 0  # index dari karakter yang dibaca, dimulai dari 0
-#     cur = 1  # posisi karakter relatif terhadap baris tempat dia berada
-#     line = 1  # posisi baris saat ini
-#     tokens = []
-#     while index < len(teks):
-#         if teks[index] == '\n':
-#             cur = 1
-#             line += 1
-#         match = None
+def lexer(teks, token_exp):
+    pos = 0  # posisi karakter pada seluruh potongan teks (absolut)
+    cur = 1  # posisi karakter relatif terhadap baris tempat dia berada
+    line = 1  # posisi baris saat ini
+    tokens = []
+    while pos < len(teks):
+        if teks[pos] == '\n':
+            cur = 1
+            line += 1
+        match = None
 
-#         for t in token_exp:
-#             pattern, tag = t
-#             if line == 1:
-#                 if pattern == newA:
-#                     pattern = r'[^\w]*[ \t]*\'\'\'[(?!(\'\'\'))\w\W]*\'\'\''
-#                 elif pattern == newB:
-#                     pattern = r'[^\w]*[ \t]*\"\"\"[(?!(\"\"\"))\w\W]*\"\"\"'
-#             regex = re.compile(pattern)
-#             match = regex.match(teks, index)
-#             if match:
-#                 if tag:
-#                     token = tag
-#                     tokens.append(token)
-#                 break
+        for t in token_exp:
+            pattern, tag = t
+            if line == 1:
+                if pattern == newA:
+                    pattern = r'[^\w]*[ \t]*\'\'\'[(?!(\'\'\'))\w\W]*\'\'\''
+                elif pattern == newB:
+                    pattern = r'[^\w]*[ \t]*\"\"\"[(?!(\"\"\"))\w\W]*\"\"\"'
+            regex = re.compile(pattern)
+            match = regex.match(teks, pos)
+            if match:
+                if tag:
+                    token = tag
+                    tokens.append(token)
+                break
 
-#         if not match:
-#             print("ILLEGAL CHARACTER")
-#             print("SYNTAX ERROR")
-#             sys.exit(1)
-#         else:
-#             pos = match.end(0)
-#         cur += 1
-#     return tokens
+        if not match:
+            print("ILLEGAL CHARACTER")
+            print("SYNTAX ERROR")
+            sys.exit(1)
+        else:
+            pos = match.end(0)
+        cur += 1
+    return tokens
 
 
-# def create_token(sentence, token):
-#     file = open(sentence)
-#     char = file.read()
-#     file.close()
 
-#     tokens = lexer(char, token)
-#     tokenArray = []
-#     for token in tokens:
-#         tokenArray.append(token)
+def create_token(sentence, token):
+    file = open(sentence)
+    char = file.read()
+    file.close()
 
-#     return " ".join(tokenArray)
+    tokens = lexer(char, token)
+    tokenArray = []
+    for token in tokens:
+        tokenArray.append(token)
+
+    return " ".join(tokenArray)
+
+
+print(create_token('test.txt', token))
