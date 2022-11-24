@@ -101,4 +101,175 @@ def isNumber(number):
         return True
     else:
         return False
+
+
+#Final state var -> state2
+#Final state num -> state8
+#Final state operator -> state 9
+#dead state = 100
+def opState0(variabel):
     
+    if (isVariable(variabel) or isNumber(variabel)):
+        state = 1
+    elif(variabel == "++" or variabel =="--"):
+        state = 9
+    else:
+        state = 100
+    
+    return state
+
+def opState1(variabel):
+    if (variabel == "=" or variabel == ">" or variabel == "<" or variabel == "==" or variabel == ">=" or variabel == "<=" or variabel == "!="):
+        state = 2
+    elif (variabel == "+" or variabel == "-" or variabel == "*" or variabel == "/" or variabel == "%" or variabel == "**" ):
+        state = 4
+    elif (variabel == "++" or variabel == "--"):
+        state = 7
+    elif (variabel == "+=" or variabel == "-=" or variabel == "*=" or variabel == "%=" or variabel == "/=" or variabel == "**="):
+        state = 8
+    else:
+        state = 100
+    return state
+
+def opState2(variabel):
+    if (isVariable(variabel)):
+        state = 3
+    elif (isNumber(variabel)):
+        state = 6
+    else:
+        state = 100
+    return state
+
+def opState3(variabel):
+    if(isVariable(variabel)):
+        state = 3
+    elif((variabel == "=" or variabel == ">" or variabel == "<" or variabel == "==" or variabel == ">=" or variabel == "<=" or variabel == "!=")):
+        state = 2
+    elif((variabel == "+" or variabel == "-" or variabel == "*" or variabel == "/" or variabel == "%" or variabel == "**")):
+        state = 4
+    elif((variabel == "+=" or variabel == "-=" or variabel == "*=" or variabel == "%=" or variabel == "/=" or variabel == "**=")):
+        state = 8
+    else:
+        state = 100
+    return state
+    
+def opState4(variabel):
+    if(isVariable(variabel)):
+        state = 3
+    elif (isNumber(variabel)):
+        state = 5
+    else:
+        state = 100
+    return state
+
+def opState5(variabel):
+    if (variabel == "=" or variabel == ">" or variabel == "<" or variabel == "==" or variabel == ">=" or variabel == "<=" or variabel == "!="):
+        state = 2
+    else:
+        state = 100
+    return state
+
+def opState6(variabel):
+    if(isNumber(variabel)):
+        state = 6
+    else:
+        state = 100
+    return state
+
+def opState7(variabel):
+    if(not isVariable(variabel)) or (not isNumber(variabel)):
+        state = 7
+    else:
+        state = 100
+    return state
+
+def opState8(variabel):
+    if isVariable(variabel):
+        state = 3
+    elif isNumber(variabel):
+        state = 6
+    else:
+        state = 100
+    return state
+
+def openState9(variabel):
+    if isVariable(variabel):
+        state = 3
+    else:
+        state = 100
+    return state
+
+def checkOperator(operator):
+    operatorlist = operator.split()
+    state = 0
+    for i in range(len(operatorlist)):
+        if (state == 0):
+            state = opState0(operatorlist[i])
+            print(state)
+        elif (state == 1):
+            state = opState1(operatorlist[i])
+            print(state)
+        elif (state == 2):
+            state = opState2(operatorlist[i])
+            print(state)
+        elif(state == 3):
+            state = opState3(operatorlist[i])
+            print(state)
+        elif(state == 4):
+            state = opState4(operatorlist[i])
+            print(state)
+        elif(state == 5):
+            state = opState5(operatorlist[i])
+            print(state)
+        elif(state == 6):
+            state = opState6(operatorlist[i])
+        elif(state == 7):
+            state = opState7(operatorlist[i])
+            print(state)
+        elif(state == 8):
+            state = opState8(operatorlist[i])
+            print(state)
+        elif(state == 9):
+            state = openState9(operatorlist[i])
+            print(state)
+        elif(state == 100):
+            return False
+    
+    if (state == 3 or state == 6 or state == 7):
+        return True
+    else :
+        return False
+        
+
+tes = "abc += b"
+valid = checkOperator(tes)
+
+#tes4 = opState3(" ")
+
+print(valid)
+#print(tes4)
+
+#yang boleh
+# a = 0 -- var = num
+# a == b+c
+# a = a + b
+# a + b == c
+# a== 0 -- var == num
+# 9 + 4 == 13
+# i++
+# i--
+#  a = b = c += d = 3 
+# 1 + 2 == 3
+# 1 == 3
+# 1 <= 3
+
+#belom ke handle
+# a**2
+# a + b = c
+
+
+
+#gaboleh
+# a + b = c (a+b) bakal dianngep variabel
+# 1++
+# += 1
