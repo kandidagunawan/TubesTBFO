@@ -31,3 +31,6 @@ Tugas Teori Bahasa Formal dan Otomata membuat parser Javascript dalam bahasa pem
         lexer.cpython-310.pyc
         
 ```
+# How To Run
+1. Clone this github
+2. Run `python main.py [test file] `
