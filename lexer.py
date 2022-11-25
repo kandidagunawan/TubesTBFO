@@ -10,11 +10,11 @@ token = [
 
 
     # Integer and String
-    (r'\"[^\"\n]*\"',           "STRING"),
-    (r'\'[^\'\n]*\'',           "STRING"),
-    (r'[\+\-]?[0-9]*\.[0-9]',  "INT"),
-    (r'[\+\-]?[1-9][0-9]',     "INT"),
-    (r'[\+\-]?[0-9]',           "INT"),
+    (r'\"[^\"\n]*\"',           "alphabet"),
+    (r'\'[^\'\n]*\'',           "alphabet"),
+    (r'[\+\-]?[0-9]*\.[0-9]',  "int"),
+    (r'[\+\-]?[1-9][0-9]',     "int"),
+    (r'[\+\-]?[0-9]',           "int"),
 
     # Delimiter
     (r'\n',                     "nl"),
@@ -48,7 +48,6 @@ token = [
     (r'\==',                    "=="),
     (r'\=(?!\=)',               "="),
 
-
     # keyword
     (r'\blet\b', "let"),
     (r'\bvar\b', "var"),
@@ -78,13 +77,13 @@ token = [
     (r'\bwith\b', "with"),
     (r'\bcase\b', "case"),
     (r'\bdefault\b', "default"),
-    (r'\btry\b', "try"),    #
+    (r'\btry\b', "try"),
     (r'\bcatch\b', "catch"),
     (r'\bfinally\b', "finally"),
     (r'\bthrow\b', "throw"),
     (r'\'\'\'[(?!(\'\'\'))\w\W]*\'\'\'',       "MULTILINE"),
     (r'\"\"\"[(?!(\"\"\"))\w\W]*\"\"\"',       "MULTILINE"),
-    (r'[A-Za-z_$][A-Za-z0-9_$]*', "ID"),
+    (r'[A-Za-z_$][A-Za-z0-9_$]*', "alphabet"),
 ]
 
 # teks ke token
@@ -92,7 +91,7 @@ newA = r'[\n]+[ \t]*\'\'\'[(?!(\'\'\'))\w\W]*\'\'\''
 newB = r'[\n]+[ \t]*\"\"\"[(?!(\"\"\"))\w\W]*\"\"\"'
 
 
-def lexer(teks, token_exp):
+def lexer(teks, tokenDeclared):
     pos = 0  # posisi karakter pada seluruh potongan teks (absolut)
     cur = 1  # posisi karakter relatif terhadap baris tempat dia berada
     line = 1  # posisi baris saat ini
@@ -103,14 +102,14 @@ def lexer(teks, token_exp):
             line += 1
         match = None
 
-        for t in token_exp:
-            pattern, tag = t
+        for t in tokenDeclared:
+            key, tag = t
             if line == 1:
-                if pattern == newA:
-                    pattern = r'[^\w]*[ \t]*\'\'\'[(?!(\'\'\'))\w\W]*\'\'\''
-                elif pattern == newB:
-                    pattern = r'[^\w]*[ \t]*\"\"\"[(?!(\"\"\"))\w\W]*\"\"\"'
-            regex = re.compile(pattern)
+                if key == newA:
+                    key = r'[^\w]*[ \t]*\'\'\'[(?!(\'\'\'))\w\W]*\'\'\''
+                elif key == newB:
+                    key = r'[^\w]*[ \t]*\"\"\"[(?!(\"\"\"))\w\W]*\"\"\"'
+            regex = re.compile(key)
             match = regex.match(teks, pos)
             if match:
                 if tag:
@@ -128,15 +127,15 @@ def lexer(teks, token_exp):
     return tokens
 
 
-def create_token(sentence, token):
-    file = open(sentence)
-    char = file.read()
+def create_token(wordFile, token):
+    file = open(wordFile)
+    bacaChar = file.read()
     file.close()
-    tokens = lexer(char, token)
-    tokenArray = []
+    tokens = lexer(bacaChar, token)
+    arr = []
     for token in tokens:
-        tokenArray.append(token)
-    return tokenArray
+        arr.append(token)
+    return arr
 
 
-print(create_token('testVar.txt', token))
+# print(create_token('test.txt', token))
