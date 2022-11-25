@@ -1,14 +1,14 @@
 # Deskripsi
 Tugas Teori Bahasa Formal dan Otomata membuat parser Javascript dalam bahasa pemrograman python
 
-#Nama Anggota
+# Nama Anggota
 | NIM  | NAM |
 | ------------- | ------------- |
 | 13521132  | Dhanika Novlisariyanti  |
 | 13521140 | Ryan Samuel Chandra  |
 | 13521155 | Kandida Edgina Gunawan  |
 
-#Structures
+# Structures
 ```
 │   convert_CFG_CNF.py
 │   CYK.py
