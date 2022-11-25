@@ -108,7 +108,13 @@ def isOperator(variabel):
     for i in range(len(operator)):
         if (variabel == operator[i]):
            valid = True 
-    return valid       
+    return valid  
+   
+def isString(variabel):
+    if variabel.Contains("\""):
+        return True
+    else:
+        return False
 #Final state var -> state2
 #Final state num -> state8
 #Final state operator -> state 9
@@ -262,15 +268,15 @@ def checkOperator(operator):
         return True
     else :
         return False
-    
-        
 
-tes = "a + b - b + a = 0"
-valid = checkOperator(tes)
+      
+
+#tes = ' aa = "test" '
+#valid = isOperator(tes)
 
 #tes4 = opState3(" ")
 #tes = isOperator("))")
-print(valid)
+#print(valid)
 #print(valid)
 #print(tes4)
 
