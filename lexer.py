@@ -12,75 +12,79 @@ token = [
     # Integer and String
     (r'\"[^\"\n]*\"',           "STRING"),
     (r'\'[^\'\n]*\'',           "STRING"),
-    (r'[\+\-]?[0-9]*\.[0-9]+',  "INT"),
-    (r'[\+\-]?[1-9][0-9]+',     "INT"),
+    (r'[\+\-]?[0-9]*\.[0-9]',  "INT"),
+    (r'[\+\-]?[1-9][0-9]',     "INT"),
     (r'[\+\-]?[0-9]',           "INT"),
 
     # Delimiter
-    (r'\n',                     "NL"),
-    (r'\(',                     "RP"),  # Kurung Biasa KIri
-    (r'\)',                     "LP"),
-    (r'\[',                     "SBR"),  # Kurung Siku KIri
-    (r'\]',                     "SBL"),
-    (r'\{',                     "CBR"),  # Kurung Kurawal Kiri
-    (r'\}',                     "CBL"),
-    (r'\;',                     "SEMICOLON"),
-    (r'\:',                     "COLON"),
+    (r'\n',                     "nl"),
+    (r'\(',                     "("),  # Kurung Biasa KIri
+    (r'\)',                     ")"),
+    (r'\[',                     "["),  # Kurung Siku KIri
+    (r'\]',                     "]"),
+    (r'\{',                     "{"),  # Kurung Kurawal Kiri
+    (r'\}',                     "}"),
+    (r'\;',                     ";"),
+    (r'\:',                     ":"),
 
     # Operator
-    (r'\*\*=',                   "POWEQ"),
-    (r'\*\*',                    "POW"),
-    (r'\*',                     "MUL"),
-    (r'\*=',                    "MULEQ"),
-    (r'/',                      "DIVIDE"),
-    (r'/=',                     "DIVIDEQ"),
-    (r'\+',                     "PLUS"),
-    (r'\+=',                    "PLUSEQ"),
-    (r'\-',                     "MIN"),
-    (r'-=',                     "MINEQ"),
-    (r'%',                      "MOD"),
-    (r'%=',                     "MODEQ"),
-    (r'<=',                     "LESSEQ"),
-    (r'<',                      "LESS"),
-    (r'>=',                     "GREATEQ"),
-    (r'>',                      "GREAT"),
-    (r'!=',                     "NEQ"),
-    (r'\==',                    "ISEQ"),
-    (r'\=(?!\=)',               "EQUAL"),
+    (r'\*\*=',                   "**="),
+    (r'\*\*',                    "**"),
+    (r'\*',                     "*"),
+    (r'\*=',                    "*="),
+    (r'/',                      "/"),
+    (r'/=',                     "/="),
+    (r'\+',                     "+"),
+    (r'\+=',                    "+="),
+    (r'\-',                     "-"),
+    (r'-=',                     "-="),
+    (r'%',                      "%"),
+    (r'%=',                     "%="),
+    (r'<=',                     "<="),
+    (r'<',                      "<"),
+    (r'>=',                     ">="),
+    (r'>',                      ">"),
+    (r'!=',                     "!="),
+    (r'\==',                    "=="),
+    (r'\=(?!\=)',               "="),
 
 
     # keyword
-    (r'\blet\b', "LETS"),
-    (r'\bvar\b', "VARIABLES"),
-    (r'\bconst\b', "CONSTANTS"),
-    (r'\bnone\b', "NONES"),
-    (r'\band\b', "ANDS"),
-    (r'\bor\b', "ORS"),
-    (r'\bis\b', "ISS"),
-    (r'\bin\b', "INS"),
-    (r'\bnot\b', "NOTS"),
-    (r'\btrue\b', "TRUES"),
-    (r'\bfalse\b', "FALSES"),
-    (r'\bfor\b', "FORS"),
-    (r'\bif\b', "IFS"),
-    (r'\belse\b', "ELSES"),
-    (r'\bswitch\b', "SWITCHS"),
-    (r'\bbreak\b', "BREAKS"),
-    (r'\bcontinue\b', "CONTINUES"),
-    (r'\bdo\b', "DOS"),
-    (r'\bwhile\b', "WHILES"),
-    (r'\breturn\b', "RETURNS"),
-    (r'\bfunction\b', "FUNCTIONS"),
-    (r'\bclass\b', "CLASS"),
-    (r'\bfrom\b', "FROMS"),
-    (r'\bimport\b', "IMPORTS"),
-    (r'\bas\b', "ASS"),
-    (r'\bwith\b', "WITHS"),
-    (r'\bcase\b', "CASES"),
-    (r'\bdefault\b', "DEFAULT"),
+    (r'\blet\b', "let"),
+    (r'\bvar\b', "var"),
+    (r'\bconst\b', "const"),
+    (r'\bnone\b', "none"),
+    (r'\band\b', "and"),
+    (r'\bor\b', "or"),
+    (r'\bis\b', "is"),
+    (r'\bin\b', "in"),
+    (r'\bnot\b', "not"),
+    (r'\btrue\b', "true"),
+    (r'\bfalse\b', "false"),
+    (r'\bfor\b', "for"),
+    (r'\bif\b', "if"),
+    (r'\belse\b', "else"),
+    (r'\bswitch\b', "switch"),
+    (r'\bbreak\b', "break"),
+    (r'\bcontinue\b', "continue"),
+    (r'\bdo\b', "do"),
+    (r'\bwhile\b', "while"),
+    (r'\breturn\b', "return"),
+    (r'\bfunction\b', "function"),
+    (r'\bclass\b', "class"),
+    (r'\bfrom\b', "from"),
+    (r'\bimport\b', "import"),
+    (r'\bas\b', "as"),
+    (r'\bwith\b', "with"),
+    (r'\bcase\b', "case"),
+    (r'\bdefault\b', "default"),
+    (r'\btry\b', "try"),    #
+    (r'\bcatch\b', "catch"),
+    (r'\bfinally\b', "finally"),
+    (r'\bthrow\b', "throw"),
     (r'\'\'\'[(?!(\'\'\'))\w\W]*\'\'\'',       "MULTILINE"),
     (r'\"\"\"[(?!(\"\"\"))\w\W]*\"\"\"',       "MULTILINE"),
-    (r'[A-Za-z_][A-Za-z0-9_]*', "ID"),
+    (r'[A-Za-z_$][A-Za-z0-9_$]*', "ID"),
 ]
 
 # teks ke token
@@ -124,18 +128,15 @@ def lexer(teks, token_exp):
     return tokens
 
 
-
 def create_token(sentence, token):
     file = open(sentence)
     char = file.read()
     file.close()
-
     tokens = lexer(char, token)
     tokenArray = []
     for token in tokens:
         tokenArray.append(token)
+    return tokenArray
 
-    return " ".join(tokenArray)
 
-
-print(create_token('test.txt', token))
+print(create_token('testVar.txt', token))
