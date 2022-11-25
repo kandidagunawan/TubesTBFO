@@ -109,12 +109,7 @@ def isOperator(variabel):
         if (variabel == operator[i]):
            valid = True 
     return valid  
-   
-def isString(variabel):
-    if variabel.Contains("\""):
-        return True
-    else:
-        return False
+
 #Final state var -> state2
 #Final state num -> state8
 #Final state operator -> state 9
