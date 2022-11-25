@@ -21,9 +21,8 @@ def CYK(word, rules):
         for i in range(len(word)):
             list_now = []
             for j in range(len(rules)):
-                for k in range(len(rules[j][1])):
-                    if (word[i] == rules[j][1][k]):
-                        list_now.append(rules[j][0])
+                if (word[i] == rules[j][1][0]):
+                    list_now.append(rules[j][0])
             Tabel_CYK[0].append(list_now)
 
         #Mengisi baris kedua
@@ -37,8 +36,8 @@ def CYK(word, rules):
                 if (c == 1-1 or 1-c-1 == 1-1):
                     for i in range(len(list_check)):
                         for j in range(len(rules)):
-                            for l in range(len(rules[j][1])):
-                                if (list_check[i] == rules[j][1][l]):
+                            if (len(rules[j][1]) != 1):
+                                if (list_check[i] == rules[j][1][0]+rules[j][1][1]):
                                     belum_ada = True
                                     for m in range(len(list_now)):
                                         if (list_now[m] == rules[j][0]):
@@ -59,8 +58,8 @@ def CYK(word, rules):
                     if (c == b-1 or b-c-1 == b-1):
                         for i in range(len(list_check)):
                             for j in range(len(rules)):
-                                for l in range(len(rules[j][1])):
-                                    if (list_check[i] == rules[j][1][l]):
+                                if (len(rules[j][1]) != 1):
+                                    if (list_check[i] == rules[j][1][0]+rules[j][1][1]):
                                         belum_ada = True
                                         for m in range(len(list_now)):
                                             if (list_now[m] == rules[j][0]):
@@ -71,7 +70,7 @@ def CYK(word, rules):
 
         #Validasi
         for i in range(len(list_now)):
-            if (list_now[i] == "S"):
+            if (list_now[i] == "SS"):
                 accept = True
                 break
         return (accept)
@@ -94,9 +93,8 @@ def CYK_Tabel(word, rules):
         for i in range(len(word)):
             list_now = []
             for j in range(len(rules)):
-                for k in range(len(rules[j][1])):
-                    if (word[i] == rules[j][1][k]):
-                        list_now.append(rules[j][0])
+                if (word[i] == rules[j][1][0]):
+                    list_now.append(rules[j][0])
             Tabel_CYK[0].append(list_now)
 
         #Mengisi baris kedua
@@ -110,8 +108,8 @@ def CYK_Tabel(word, rules):
                 if (c == 1-1 or 1-c-1 == 1-1):
                     for i in range(len(list_check)):
                         for j in range(len(rules)):
-                            for l in range(len(rules[j][1])):
-                                if (list_check[i] == rules[j][1][l]):
+                            if (len(rules[j][1]) != 1):
+                                if (list_check[i] == rules[j][1][0]+rules[j][1][1]):
                                     belum_ada = True
                                     for m in range(len(list_now)):
                                         if (list_now[m] == rules[j][0]):
@@ -132,8 +130,8 @@ def CYK_Tabel(word, rules):
                     if (c == b-1 or b-c-1 == b-1):
                         for i in range(len(list_check)):
                             for j in range(len(rules)):
-                                for l in range(len(rules[j][1])):
-                                    if (list_check[i] == rules[j][1][l]):
+                                if (len(rules[j][1]) != 1):
+                                    if (list_check[i] == rules[j][1][0]+rules[j][1][1]):
                                         belum_ada = True
                                         for m in range(len(list_now)):
                                             if (list_now[m] == rules[j][0]):
@@ -144,7 +142,7 @@ def CYK_Tabel(word, rules):
 
         #Validasi
         for i in range(len(list_now)):
-            if (list_now[i] == "S"):
+            if (list_now[i] == "SS"):
                 accept = True
                 break
         return (Tabel_CYK)
@@ -180,22 +178,12 @@ def printTabel (Tabel_CYK):
             j = j + 1
 
 #Masukan untuk percobaan
-W = ["b","a","d","a"]
-Q = ["c","a","b","a"]
-Z = ["a","b","a","b"]
-#Rules untuk percobaan
-R = [("S", ["a","b","c","SA"]), ("A", ["a","b","AA"])]
+# W = ["b","a","d","a"]
+# Q = ["c","a","b","a"]
+# Z = ["a","b","a","b"]
+# P = ["a","b","a","b","a"]
+# #Rules untuk percobaan
+# R = [("S", ["A","B"]), ("S", ["B","C"]), ("A", ["B","A"]), ("A", ["a"]), ("B", ["C","C"]), ("B", ["b"]), ("C", ["A","B"]), ("C", ["a"])]
 
-coba = CYK_Tabel (Z, R)
-printTabel(coba)
-acc = CYK (Z,R)
-print("\n"+str(acc))
-
-print("\n")
-
-coba2 = CYK_Tabel (W, R)
-printTabel(coba2)
-acc2 = CYK (W,R)
-print("\n"+str(acc2))
-
-print("\n")
+# X = CYK_Tabel(P,R)
+# printTabel(X)
