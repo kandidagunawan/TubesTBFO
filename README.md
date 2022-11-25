@@ -9,7 +9,7 @@ Tugas Teori Bahasa Formal dan Otomata membuat parser Javascript dalam bahasa pem
 | 13521155 | Kandida Edgina Gunawan  |
 
 #Structures
-'''
+```
 │   convert_CFG_CNF.py
 │   CYK.py
 │   fa.py
@@ -30,4 +30,4 @@ Tugas Teori Bahasa Formal dan Otomata membuat parser Javascript dalam bahasa pem
         fa.cpython-310.pyc
         lexer.cpython-310.pyc
         
-'''
+```
