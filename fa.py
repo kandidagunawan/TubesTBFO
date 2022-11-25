@@ -102,7 +102,13 @@ def isNumber(number):
     else:
         return False
 
-
+def isOperator(variabel):
+    valid = False
+    operator = ["+", "-", "/", "%", "*", "==", "++", "--", "**", "+=", "-=", "/=", "*=", "%=", ">", "<", "<=", ">=", "!=", "**="]
+    for i in range(len(operator)):
+        if (variabel == operator[i]):
+           valid = True 
+    return valid       
 #Final state var -> state2
 #Final state num -> state8
 #Final state operator -> state 9
@@ -121,11 +127,11 @@ def opState0(variabel):
 def opState1(variabel):
     if (variabel == "=" or variabel == ">" or variabel == "<" or variabel == "==" or variabel == ">=" or variabel == "<=" or variabel == "!="):
         state = 2
-    elif (variabel == "+" or variabel == "-" or variabel == "*" or variabel == "/" or variabel == "%" or variabel == "**" ):
+    elif (variabel == "+" or variabel == "-" or variabel == "*" or variabel == "/" or variabel == "%"):
         state = 4
     elif (variabel == "++" or variabel == "--"):
         state = 7
-    elif (variabel == "+=" or variabel == "-=" or variabel == "*=" or variabel == "%=" or variabel == "/=" or variabel == "**="):
+    elif (variabel == "+=" or variabel == "-=" or variabel == "*=" or variabel == "%=" or variabel == "/=" or variabel == "**=" or variabel == "**"):
         state = 8
     else:
         state = 100
@@ -143,7 +149,9 @@ def opState2(variabel):
 def opState3(variabel):
     if(isVariable(variabel)):
         state = 3
-    elif((variabel == "=" or variabel == ">" or variabel == "<" or variabel == "==" or variabel == ">=" or variabel == "<=" or variabel == "!=")):
+    elif(variabel == "=" ):
+        state = 100
+    elif((variabel == ">" or variabel == "<" or variabel == "==" or variabel == ">=" or variabel == "<=" or variabel == "!=")):
         state = 2
     elif((variabel == "+" or variabel == "-" or variabel == "*" or variabel == "/" or variabel == "%" or variabel == "**")):
         state = 4
@@ -202,51 +210,68 @@ def openState9(variabel):
 def checkOperator(operator):
     operatorlist = operator.split()
     state = 0
+    listState = []
     for i in range(len(operatorlist)):
         if (state == 0):
             state = opState0(operatorlist[i])
             print(state)
+            listState.append(state)
         elif (state == 1):
             state = opState1(operatorlist[i])
             print(state)
+            listState.append(state)
         elif (state == 2):
             state = opState2(operatorlist[i])
             print(state)
+            listState.append(state)
         elif(state == 3):
             state = opState3(operatorlist[i])
             print(state)
+            listState.append(state)
         elif(state == 4):
             state = opState4(operatorlist[i])
             print(state)
+            listState.append(state)
         elif(state == 5):
             state = opState5(operatorlist[i])
             print(state)
+            listState.append(state)
         elif(state == 6):
             state = opState6(operatorlist[i])
+            print(state)
+            listState.append(state)
         elif(state == 7):
             state = opState7(operatorlist[i])
             print(state)
+            listState.append(state)
         elif(state == 8):
             state = opState8(operatorlist[i])
             print(state)
+            listState.append(state)
         elif(state == 9):
             state = openState9(operatorlist[i])
             print(state)
+            listState.append(state)
         elif(state == 100):
+            listState.append(state)
             return False
+        
+    print(listState)
     
     if (state == 3 or state == 6 or state == 7):
         return True
     else :
         return False
+    
         
 
-tes = "abc += b"
+tes = "a + b - b + a = 0"
 valid = checkOperator(tes)
 
 #tes4 = opState3(" ")
-
+#tes = isOperator("))")
 print(valid)
+#print(valid)
 #print(tes4)
 
 #yang boleh
@@ -262,10 +287,11 @@ print(valid)
 # 1 + 2 == 3
 # 1 == 3
 # 1 <= 3
+# a + b = c
 
 #belom ke handle
-# a**2
-# a + b = c
+# func1 = function()
+# object
 
 
 
